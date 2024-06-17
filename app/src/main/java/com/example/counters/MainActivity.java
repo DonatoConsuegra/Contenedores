@@ -1,9 +1,12 @@
 package com.example.counters;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,23 +38,42 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.ListaCursos);
         textView.setAdapter(adapter);
 
-
-        String[] datoslista = new String[]{"CONSUEGRA GONZALEZ DONATO SEBASTIAN",
-                "FRANCO ZAMORA JAIR ALEXANDER",
-                "ORTEGA RIZZO ANGEL MATHIAS",
-                "PALLO PINTO JENNYFER NAYELI",
-                "VILLAO ZAMORA MARCOS ADRIAN"
-                };
+        /*
+        //String[] datoslista = new String[]{"CONSUEGRA GONZALEZ DONATO SEBASTIAN",
+       //         "FRANCO ZAMORA JAIR ALEXANDER",
+        //        "ORTEGA RIZZO ANGEL MATHIAS",
+         //       "PALLO PINTO JENNYFER NAYELI",
+         //       "VILLAO ZAMORA MARCOS ADRIAN"
+          //      };
 
         ArrayAdapter<String> adaptador2 = new
                 ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, datoslista);
+        */
 
+        Alumno[] alumnos=
+                new Alumno[]{
+                        new Alumno("Banchon Carolay Damars","carolay@uteq,edu.ec"),
+                        new Alumno("Donato Consuegra González", "dconsuegrag2@uteq.edu.ec"),
+                        new Alumno("Banchon Carolay Damars","carolay@uteq,edu.ec"),
+                        new Alumno("Donato Consuegra González", "dconsuegrag2@uteq.edu.ec"),
+                        new Alumno("Banchon Carolay Damars","carolay@uteq,edu.ec"),
+                        new Alumno("Donato Consuegra González", "dconsuegrag2@uteq.edu.ec")
+                };
+
+        AdaptadorAlumnos adaptadorAlumnos
+                =new AdaptadorAlumnos(this,alumnos);
 
         ListView lstOpciones =
                 (ListView)findViewById(R.id.listaAlumnos);
-        lstOpciones.setAdapter(adaptador2);
-
-
+        lstOpciones.setAdapter(adaptadorAlumnos);
+        lstOpciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Toast.makeText(getApplicationContext(), "Alumno Seleccionado" +
+                                adapterView.getItemAtPosition(pos).toString()
+                        , Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
